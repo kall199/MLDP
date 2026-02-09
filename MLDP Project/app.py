@@ -1,4 +1,5 @@
 # IMPORT LIBRARIES
+import os
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -16,7 +17,8 @@ st.set_page_config(
 def load_model():
     """Load the trained model"""
     try:
-        model = joblib.load("diabetes_final_model.pkl")
+        base_dir = os.path.dirname(__file__)
+        model = joblib.load(os.path.join(base_dir, "diabetes_final_model.pkl"))
         return model
     except FileNotFoundError:
         st.error("Model file not found. Please ensure 'diabetes_final_model.pkl' is in the same directory.")
