@@ -1,30 +1,17 @@
-"""
-Diabetes Prediction Web Application
-===================================
-CAI2C08 - Machine Learning for Developers
-Temasek Polytechnic
-"""
-
-# ============================================
 # IMPORT LIBRARIES
-# ============================================
 import streamlit as st
 import pandas as pd
 import numpy as np
 import joblib
 
-# ============================================
 # PAGE CONFIGURATION
-# ============================================
 st.set_page_config(
     page_title="Diabetes Risk Prediction",
     page_icon="plus",
     layout="centered"
 )
 
-# ============================================
 # LOAD MODEL
-# ============================================
 @st.cache_resource
 def load_model():
     """Load the trained model"""
@@ -37,17 +24,13 @@ def load_model():
 
 model = load_model()
 
-# ============================================
 # APP HEADER
-# ============================================
 st.title("Diabetes Risk Prediction")
 st.write("Enter patient information below to assess diabetes risk.")
 
 st.markdown("---")
 
-# ============================================
 # SIDEBAR - INFORMATION
-# ============================================
 with st.sidebar:
     st.header("About This Application")
     st.write("""
@@ -70,9 +53,7 @@ with st.sidebar:
     
     st.write("**Disclaimer:** This tool is for educational purposes only and should not replace professional medical advice.")
 
-# ============================================
 # INPUT FORM
-# ============================================
 st.subheader("Patient Information")
 
 # Create two columns
@@ -149,9 +130,7 @@ with col4:
 
 st.markdown("---")
 
-# ============================================
 # PREDICTION
-# ============================================
 if st.button("Predict Risk", type="primary"):
     if model is not None:
         # Prepare input data
@@ -233,9 +212,7 @@ if st.button("Predict Risk", type="primary"):
     else:
         st.error("Model not loaded. Please check if the model file exists.")
 
-# ============================================
 # FOOTER
-# ============================================
 st.markdown("---")
-st.caption("Diabetes Prediction Application | CAI2C08 Machine Learning Project | Temasek Polytechnic")
+st.caption("Diabetes Prediction Application | Machine Learning Project | Temasek Polytechnic")
 st.caption("This is for educational purposes only. Always consult healthcare professionals for medical advice.")
