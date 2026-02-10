@@ -67,8 +67,6 @@ with st.sidebar:
     
     st.markdown("---")
     
-    st.write("**Disclaimer:** This tool is for educational purposes only and should not replace professional medical advice.")
-
 # INPUT FORM
 st.subheader("Patient Information")
 
