@@ -26,6 +26,20 @@ def load_model():
 
 model = load_model()
 
+# LOAD SCALER
+@st.cache_resource
+def load_scaler():
+    """Load the scaler for preprocessing"""
+    try:
+        base_dir = os.path.dirname(__file__)
+        scaler = joblib.load(os.path.join(base_dir, "diabetes_scaler.pkl"))
+        return scaler
+    except FileNotFoundError:
+        st.error("Scaler file not found. Please ensure 'diabetes_scaler.pkl' is in the same directory.")
+        return None
+
+scaler = load_scaler()
+
 # APP HEADER
 st.title("Diabetes Risk Prediction")
 st.write("Enter patient information below to assess diabetes risk.")
@@ -167,8 +181,10 @@ if st.button("Predict Risk", type="primary"):
         
         # Make prediction
         try:
-            prediction = model.predict(input_data)[0]
-            probability = model.predict_proba(input_data)[0]
+            # Scale input data (Logistic Regression requires scaled input)
+            input_scaled = pd.DataFrame(scaler.transform(input_data), columns=input_data.columns)
+            prediction = model.predict(input_scaled)[0]
+            probability = model.predict_proba(input_scaled)[0]
             
             # Display result
             st.subheader("Prediction Result")
